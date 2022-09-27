@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-@RequiredArgsConstructor
 class JoinService(private val memberJoinPort: MemberJoinPort) : JoinUseCase {
 
     @Transactional

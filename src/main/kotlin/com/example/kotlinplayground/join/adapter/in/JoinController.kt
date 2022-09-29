@@ -14,6 +14,7 @@ class JoinController (private val joinUseCase : JoinUseCase){
 
     @PostMapping("/join")
     fun join(@RequestBody dto : JoinDto) : ApiResponse<Any> {
+        joinUseCase.joinMember(dto)
         return ApiResponse.ok()
     }
 

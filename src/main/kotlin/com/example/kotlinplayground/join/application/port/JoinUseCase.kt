@@ -1,10 +1,11 @@
 package com.example.kotlinplayground.join.application.port
 
 import com.example.kotlinplayground.join.adapter.dto.JoinDto
-import org.springframework.stereotype.Component
+import com.example.kotlinplayground.join.domain.Member
 
-@Component
 interface JoinUseCase {
 
     fun joinMember(dto : JoinDto)
+
+    fun findMember(email : String) : Member?
 }

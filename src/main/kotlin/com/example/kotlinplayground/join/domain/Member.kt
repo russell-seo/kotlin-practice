@@ -4,6 +4,7 @@ import com.example.kotlinplayground.join.adapter.dto.JoinDto
 import javax.persistence.*
 
 @Entity
+@Table(name = "`MEMBERS`")
 class Member(
 
     @Id

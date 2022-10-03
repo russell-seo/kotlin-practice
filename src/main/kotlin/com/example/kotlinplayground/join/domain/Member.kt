@@ -14,6 +14,8 @@ class Member(
 
     val userId : String,
 
+    val password : String,
+
     val name : String,
 
     val email : String,
@@ -23,9 +25,10 @@ class Member(
 
 ) {
     companion object {
-        fun create (userId : String, name : String, email: String, phone: String): Member {
+        fun create (userId : String, password : String, name : String, email: String, phone: String): Member {
             return Member(
                 userId = userId,
+                password = password,
                 name = name,
                 email = email,
                 phone = phone
@@ -37,6 +40,7 @@ class Member(
 fun mapToMember(dto : JoinDto) : Member = Member(
     id = null,
     userId = dto.userId,
+    password = dto.password,
     name = dto.name,
     email = dto.email,
     phone = dto.phone,

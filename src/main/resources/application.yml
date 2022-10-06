@@ -24,3 +24,7 @@ logging:
     org.hibernate.type.descriptor.sql.BasicExtractor: info
     org.hibernate.type.descriptor.sql.BasicBinder: trace
     org.hibernate.engine.transaction.internal.TransactionImpl: trace
+
+
+jwt:
+  secret : 655BD275514824377345997ACDFA8B16836CA7CF9B770F6E9B8358BFFA4C2312

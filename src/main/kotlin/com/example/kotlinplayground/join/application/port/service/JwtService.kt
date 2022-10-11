@@ -1,12 +1,9 @@
 package com.example.kotlinplayground.join.application.port.service
 
 import io.jsonwebtoken.Claims
-import io.jsonwebtoken.Header
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Service
-import java.time.LocalDateTime
 import java.util.*
 
 
@@ -35,6 +32,15 @@ class JwtService(
             .body
     }
 
-    
+    fun validToken(token : String) : Boolean {
+        val body =
+            Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .body
+        return !body.expiration.before(Date())
+    }
+
+
 
 }

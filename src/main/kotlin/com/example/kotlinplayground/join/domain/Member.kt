@@ -1,6 +1,8 @@
 package com.example.kotlinplayground.join.domain
 
 import com.example.kotlinplayground.join.adapter.dto.JoinDto
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 import javax.persistence.*
 
 @Entity
@@ -24,6 +26,7 @@ class Member(
 
 
 ) {
+
     companion object {
         fun create (userId : String, password : String, name : String, email: String, phone: String): Member {
             return Member(

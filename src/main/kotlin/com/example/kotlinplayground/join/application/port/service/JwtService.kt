@@ -1,9 +1,13 @@
 package com.example.kotlinplayground.join.application.port.service
 
+import com.example.kotlinplayground.join.domain.Member
+import com.example.kotlinplayground.join.domain.Role
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -11,10 +15,8 @@ import java.util.*
 class JwtService(
     @Value("\${jwt.secret}")
     private val secret : String,
-
-    private val expiredTime : Long = 60 * 30 * 1000L
 ) {
-
+    private val expiredTime : Long = 60 * 30 * 1000L
 
     fun generateToken(email : String, name : String) : String {
         return Jwts.builder()
@@ -42,6 +44,8 @@ class JwtService(
         return !body.expiration.before(Date())
     }
 
-
+    fun getAuthentication(member : Member, role : Role) : Authentication {
+        return UsernamePasswordAuthenticationToken(member, "", role.getAuthority())
+    }
 
 }

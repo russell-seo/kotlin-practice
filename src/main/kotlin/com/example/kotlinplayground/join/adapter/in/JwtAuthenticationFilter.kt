@@ -1,8 +1,10 @@
 package com.example.kotlinplayground.join.adapter.`in`
 
 import com.example.kotlinplayground.join.application.port.service.JwtService
+import com.example.kotlinplayground.join.domain.Role
 import io.jsonwebtoken.Claims
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import java.util.*
@@ -28,10 +30,10 @@ class JwtAuthenticationFilter(
             val userInfo = jwtService.getUserInfo(token)
 
 
-        UsernamePasswordAuthenticationToken(userInfo.subject, token, )
+        val usernamePasswordAuthenticationToken = UsernamePasswordAuthenticationToken(userInfo.subject, token)
+        SecurityContextHolder.getContext().authentication = usernamePasswordAuthenticationToken
 
-
-
+        filterChain.doFilter(request, response)
     }
 
     private fun hasAccessToken(request : HttpServletRequest) : Boolean {

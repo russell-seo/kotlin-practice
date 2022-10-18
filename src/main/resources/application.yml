@@ -1,3 +1,4 @@
+
 spring:
   h2:
     console:
@@ -28,3 +29,5 @@ logging:
 
 jwt:
   secret : 655BD275514824377345997ACDFA8B16836CA7CF9B770F6E9B8358BFFA4C2312
+server:
+  port: 9000

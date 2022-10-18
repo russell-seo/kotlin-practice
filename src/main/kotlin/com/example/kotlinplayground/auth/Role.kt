@@ -1,4 +1,4 @@
-package com.example.kotlinplayground.join.domain
+package com.example.kotlinplayground.auth
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 

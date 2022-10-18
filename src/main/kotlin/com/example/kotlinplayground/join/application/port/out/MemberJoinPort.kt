@@ -5,7 +5,7 @@ import com.example.kotlinplayground.join.domain.Member
 
 interface MemberJoinPort {
 
-    fun registerMember(joinDto: JoinDto) : Long
+    fun registerMember(member: Member) : Long
 
     fun findMember(email: String): Member?
 }

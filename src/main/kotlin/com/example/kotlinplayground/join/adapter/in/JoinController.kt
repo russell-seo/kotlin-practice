@@ -7,6 +7,7 @@ import com.example.kotlinplayground.join.application.port.JoinUseCase
 import com.example.kotlinplayground.join.application.port.LoginUseCase
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -18,13 +19,13 @@ class JoinController (
 
 
 
-    @PostMapping("/join")
+    @PostMapping("/api/v1/join")
     fun join(@RequestBody dto : JoinDto) : ApiResponse<Any> {
         joinUseCase.joinMember(dto)
         return ApiResponse.ok()
     }
 
-    @PostMapping("/login")
+    @PostMapping("/api/v1/login")
     fun login(@RequestBody dto : LoginDto) : ApiResponse<Any>{
         loginUseCase.login(dto)
         return ApiResponse.ok()

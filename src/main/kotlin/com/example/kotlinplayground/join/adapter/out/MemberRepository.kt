@@ -10,7 +10,7 @@ import java.util.*
 @Repository
 interface MemberRepository : JpaRepository<Member, Long>{
 
-    fun findByEmail(email : String) : Optional<Member>
+    fun findByEmail(email : String?) : Optional<Member>
 
     @Query("select m from Member m where m.email = :userId and m.password = :password")
     fun validMember(userId : String, password : String) : Member

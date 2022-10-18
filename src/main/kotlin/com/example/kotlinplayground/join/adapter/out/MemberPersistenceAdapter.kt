@@ -13,8 +13,7 @@ class MemberPersistenceAdapter(
     private val memberRepository: MemberRepository
 ) : MemberJoinPort, LoginPort{
 
-    override fun registerMember(dto: JoinDto): Long {
-        var member = mapToMember(dto)
+    override fun registerMember(member:Member): Long {
         val save = memberRepository.save(member)
         return save.id!!
 

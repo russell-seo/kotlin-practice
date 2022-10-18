@@ -1,7 +1,7 @@
-package com.example.kotlinplayground.join.application.port.service
+package com.example.kotlinplayground.auth.service
 
 import com.example.kotlinplayground.join.domain.Member
-import com.example.kotlinplayground.join.domain.Role
+import com.example.kotlinplayground.auth.Role
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -15,6 +15,7 @@ import java.util.*
 class JwtService(
     @Value("\${jwt.secret}")
     private val secret : String,
+    val userDetailServiceImpl: UserDetailServiceImpl
 ) {
     private val expiredTime : Long = 60 * 30 * 1000L
 
@@ -44,8 +45,9 @@ class JwtService(
         return !body.expiration.before(Date())
     }
 
-    fun getAuthentication(member : Member, role : Role) : Authentication {
-        return UsernamePasswordAuthenticationToken(member, "", role.getAuthority())
+    fun getAuthentication(email: String) : Authentication {
+        val userDetails = userDetailServiceImpl.loadUserByUsername(email)
+        return UsernamePasswordAuthenticationToken(userDetails, "", userDetails.authorities)
     }
 
 }

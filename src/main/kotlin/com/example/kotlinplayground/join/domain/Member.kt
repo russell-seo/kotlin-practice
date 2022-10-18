@@ -2,8 +2,6 @@ package com.example.kotlinplayground.join.domain
 
 import com.example.kotlinplayground.auth.Role
 import com.example.kotlinplayground.join.adapter.dto.JoinDto
-import org.springframework.security.core.GrantedAuthority
-import org.springframework.security.core.userdetails.UserDetails
 import javax.persistence.*
 
 @Entity

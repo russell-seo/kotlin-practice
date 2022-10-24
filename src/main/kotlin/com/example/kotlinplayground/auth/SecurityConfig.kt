@@ -19,7 +19,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class SecurityConfig(
         val jwtService: JwtService,
         val jwtAuthenticationFilter: JwtAuthenticationFilter,
-        val userDetailServiceImpl: UserDetailServiceImpl
+        val userDetailServiceImpl: UserDetailServiceImpl,
+        val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint
 ) {
 
 
@@ -32,27 +33,22 @@ class SecurityConfig(
 
     @Bean
     fun filterChain(http: HttpSecurity) : SecurityFilterChain {
-
-
-        http.httpBasic()
-            .disable()
-            .cors().and()
+        http.anonymous().and()
             .csrf().disable()
-            .requestMatchers()
+            .cors().and()
+            .authorizeRequests()
+            .antMatchers("/api/v1/login").permitAll()
 //            .antMatchers("/api/v1/join").permitAll()
-
-            .antMatchers("/api/v1/**").and()
-                .authorizeRequests()
-                .anyRequest().authenticated()
+            .anyRequest().authenticated()
+            .and()
+            .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .userDetailsService(userDetailServiceImpl)
 
-
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
-            return http.build()
-
+        return http.build()
     }
 
     @Bean

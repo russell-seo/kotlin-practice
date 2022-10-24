@@ -19,7 +19,7 @@ class JoinController (
 
 
 
-    @PostMapping("/join")
+    @PostMapping("/api/v1/join")
     fun join(@RequestBody dto : JoinDto) : ApiResponse<Any> {
         joinUseCase.joinMember(dto)
         return ApiResponse.ok()
@@ -30,5 +30,6 @@ class JoinController (
         loginUseCase.login(dto)
         return ApiResponse.ok()
     }
+
 
 }

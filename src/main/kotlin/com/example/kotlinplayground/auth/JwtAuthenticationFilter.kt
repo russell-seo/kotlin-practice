@@ -1,5 +1,6 @@
 package com.example.kotlinplayground.auth
 
+import antlr.StringUtils
 import com.example.kotlinplayground.auth.service.JwtService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -20,15 +21,14 @@ class JwtAuthenticationFilter(
     ) {
         var token = request.getHeader("Authorization") ?: ""
 
-        if(!jwtService.validToken(token)) {
-            throw ValidationException("유효하지 않은 토큰")
+        if(!token.isNullOrBlank() && jwtService.validToken(token)) {
+            val userInfo = jwtService.getUserInfo(token)
+            val email = userInfo["email"]
+            val authentication = jwtService.getAuthentication(email as String)
+
+            SecurityContextHolder.getContext().authentication = authentication
         }
 
-        val userInfo = jwtService.getUserInfo(token)
-        val email = userInfo["email"]
-        val authentication = jwtService.getAuthentication(email as String)
-
-        SecurityContextHolder.getContext().authentication = authentication
 
         filterChain.doFilter(request, response)
     }

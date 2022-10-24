@@ -29,23 +29,30 @@ class SecurityConfig(
         return BCryptPasswordEncoder()
     }
 
+
     @Bean
     fun filterChain(http: HttpSecurity) : SecurityFilterChain {
+
+
         http.httpBasic()
             .disable()
             .cors().and()
             .csrf().disable()
-            .authorizeRequests()
-            .antMatchers("/api/v1/join").permitAll()
-            .antMatchers("/api/v1/login").permitAll()
-            .anyRequest().authenticated()
+            .requestMatchers()
+//            .antMatchers("/api/v1/join").permitAll()
+
+            .antMatchers("/api/v1/**").and()
+                .authorizeRequests()
+                .anyRequest().authenticated()
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .userDetailsService(userDetailServiceImpl)
 
+
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
-        return http.build()
+            return http.build()
+
     }
 
     @Bean
@@ -53,9 +60,9 @@ class SecurityConfig(
         return WebSecurityCustomizer { web: WebSecurity ->
             web.ignoring()
                 .antMatchers("/h2-console/**")
-                .antMatchers("/api/v1/login")
-                .antMatchers("/api/v1/join")
-                .antMatchers("/resources/")
+                    .antMatchers("/join")
+                .antMatchers("/api/v1/**")
+                .antMatchers("/resources/**")
         }
     }
 

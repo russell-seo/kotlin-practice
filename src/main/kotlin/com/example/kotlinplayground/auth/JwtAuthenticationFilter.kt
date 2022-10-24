@@ -13,20 +13,19 @@ import javax.validation.ValidationException
 @Component
 class JwtAuthenticationFilter(
     val jwtService: JwtService) : OncePerRequestFilter(){
-
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        var token = request.getHeader("Authorization") ?: throw Exception("Token 값이 없습니다. 로그인 한 후에 사용해주세요")
+        var token = request.getHeader("Authorization") ?: ""
 
         if(!jwtService.validToken(token)) {
             throw ValidationException("유효하지 않은 토큰")
         }
 
         val userInfo = jwtService.getUserInfo(token)
-        val email = userInfo.get("email")
+        val email = userInfo["email"]
         val authentication = jwtService.getAuthentication(email as String)
 
         SecurityContextHolder.getContext().authentication = authentication

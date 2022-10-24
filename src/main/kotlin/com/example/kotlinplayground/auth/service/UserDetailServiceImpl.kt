@@ -15,6 +15,7 @@ class UserDetailServiceImpl(
 
 
     override fun loadUserByUsername(username: String?): UserDetails {
+        println("memberRepository = 1")
         val member = memberRepository.findByEmail(username) ?: throw UsernameNotFoundException("존재하지 않는 유저입니다")
 
         return UserDetailsSecurity(member.get())

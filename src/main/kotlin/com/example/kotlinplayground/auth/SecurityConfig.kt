@@ -37,7 +37,7 @@ class SecurityConfig(
             .csrf().disable()
             .cors().and()
             .authorizeRequests()
-            .antMatchers("/api/v1/login").permitAll()
+            .antMatchers("/api/v1/join").permitAll()
 //            .antMatchers("/api/v1/join").permitAll()
             .anyRequest().authenticated()
             .and()
@@ -56,7 +56,7 @@ class SecurityConfig(
         return WebSecurityCustomizer { web: WebSecurity ->
             web.ignoring()
                 .antMatchers("/h2-console/**")
-                    .antMatchers("/join")
+//                    .antMatchers("/join")
                 .antMatchers("/api/v1/**")
                 .antMatchers("/resources/**")
         }

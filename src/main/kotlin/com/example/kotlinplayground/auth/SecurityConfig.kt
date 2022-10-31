@@ -37,7 +37,7 @@ class SecurityConfig(
             .csrf().disable()
             .cors().and()
             .authorizeRequests()
-            .antMatchers("/api/v1/join").permitAll()
+            .antMatchers("/api/v1/**").permitAll()
 //            .antMatchers("/api/v1/join").permitAll()
             .anyRequest().authenticated()
             .and()

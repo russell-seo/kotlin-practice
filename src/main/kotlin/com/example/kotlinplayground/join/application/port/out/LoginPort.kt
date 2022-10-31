@@ -5,5 +5,5 @@ import com.example.kotlinplayground.join.domain.Member
 
 interface LoginPort {
 
-    fun validLogin(dto: LoginDto) : Member
+    fun validLogin(dto: LoginDto) : Member?
 }

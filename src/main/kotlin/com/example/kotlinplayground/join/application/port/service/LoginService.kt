@@ -12,7 +12,7 @@ class LoginService(
     private val loginPort : LoginPort
 ) : LoginUseCase{
 
-    override fun login(dto: LoginDto) : Member {
+    override fun login(dto: LoginDto) : Member? {
         return loginPort.validLogin(dto)
     }
 }

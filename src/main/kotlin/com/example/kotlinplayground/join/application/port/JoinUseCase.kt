@@ -5,7 +5,7 @@ import com.example.kotlinplayground.join.domain.Member
 
 interface JoinUseCase {
 
-    fun joinMember(dto : JoinDto)
+    fun joinMember(dto : JoinDto) : String
 
     fun findMember(email : String) : Member?
 }

@@ -1,6 +1,7 @@
 package com.example.kotlinplayground.join.adapter.`in`
 
 import com.example.kotlinplayground.ApiResponse
+import com.example.kotlinplayground.LoginResponseDto
 import com.example.kotlinplayground.join.adapter.dto.JoinDto
 import com.example.kotlinplayground.join.adapter.dto.LoginDto
 import com.example.kotlinplayground.join.application.port.JoinUseCase
@@ -20,9 +21,9 @@ class JoinController (
 
 
     @PostMapping("/api/v1/join")
-    fun join(@RequestBody dto : JoinDto) : ApiResponse<Any> {
-        joinUseCase.joinMember(dto)
-        return ApiResponse.ok()
+    fun join(@RequestBody dto : JoinDto) : ApiResponse<LoginResponseDto> {
+        val token = joinUseCase.joinMember(dto)
+        return ApiResponse.ok(LoginResponseDto(token))
     }
 
     @PostMapping("/api/v1/login")

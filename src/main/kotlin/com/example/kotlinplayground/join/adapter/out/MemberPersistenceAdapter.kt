@@ -22,8 +22,11 @@ class MemberPersistenceAdapter(
     }
 
     override fun findMember(email: String): Member? {
-        val member = memberRepository.findByEmail(email)
-        return if (member.isPresent) member.get() else null
+        val member = memberRepository.findByEmail(email)?.let {
+            it
+        }
+            ?: throw UsernameNotFoundException("해당 유저가 없습니다.")
+        return member
     }
 
     override fun validLogin(dto: LoginDto): Member? {
@@ -31,7 +34,7 @@ class MemberPersistenceAdapter(
             ?.let {
                 it
             }
-            ?: throw UsernameNotFoundException("입력하신 정보가 틀렸습니다.")
+            ?: throw IllegalArgumentException("입력하신 정보가 틀렸습니다.")
 
         return member
     }

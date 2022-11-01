@@ -18,7 +18,7 @@ class JoinService(
     ) : JoinUseCase {
 
     @Transactional
-    override fun joinMember(dto: JoinDto) {
+    override fun joinMember(dto: JoinDto) : String{
         val member =
                 Member.create(
                 userId = dto.userId,
@@ -29,6 +29,7 @@ class JoinService(
                 role = Role.USER.getDesc()
         )
         val joinMembers = memberJoinPort.registerMember(member);
+        return jwtService.generateToken(dto.email, dto.name)
     }
 
     override fun findMember(email: String) : Member? {

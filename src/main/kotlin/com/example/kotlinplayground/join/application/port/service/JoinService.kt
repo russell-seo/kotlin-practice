@@ -1,7 +1,6 @@
 package com.example.kotlinplayground.join.application.port.service
 
 import com.example.kotlinplayground.auth.Role
-import com.example.kotlinplayground.auth.service.JwtService
 import com.example.kotlinplayground.join.adapter.dto.JoinDto
 import com.example.kotlinplayground.join.application.port.JoinUseCase
 import com.example.kotlinplayground.join.application.port.out.MemberJoinPort
@@ -12,13 +11,12 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class JoinService(
-    private val memberJoinPort: MemberJoinPort,
-    private val jwtService: JwtService,
-    private val passwordEncoder : PasswordEncoder
+    val memberJoinPort: MemberJoinPort,
+    val passwordEncoder : PasswordEncoder
     ) : JoinUseCase {
 
     @Transactional
-    override fun joinMember(dto: JoinDto) : String{
+    override fun joinMember(dto: JoinDto) : Long{
         val member =
                 Member.create(
                 userId = dto.userId,
@@ -28,8 +26,8 @@ class JoinService(
                 email = dto.email,
                 role = Role.USER.getDesc()
         )
-        val joinMembers = memberJoinPort.registerMember(member);
-        return jwtService.generateToken(dto.email, dto.name)
+        return  memberJoinPort.registerMember(member);
+
     }
 
     override fun findMember(email: String) : Member? {

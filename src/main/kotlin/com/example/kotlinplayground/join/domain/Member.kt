@@ -1,7 +1,7 @@
 package com.example.kotlinplayground.join.domain
 
 import com.example.kotlinplayground.auth.Role
-import com.example.kotlinplayground.join.adapter.dto.JoinDto
+import com.example.kotlinplayground.coupon.Coupon
 import javax.persistence.*
 
 @Entity
@@ -23,7 +23,11 @@ class Member(
 
     val phone : String,
 
-    val memberRole : String
+    val memberRole : String,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "coupon_id")
+    val coupon: Coupon?
 
 ){
     companion object {
@@ -34,18 +38,20 @@ class Member(
                     name = name,
                     email = email,
                     phone = phone,
-                    memberRole = Role.USER.getDesc()
+                    memberRole = Role.USER.getDesc(),
+                    coupon = null
+
             )
         }
     }
 }
 
-fun mapToMember(dto : JoinDto) : Member = Member(
-    id = null,
-    userId = dto.userId,
-    password = dto.password,
-    name = dto.name,
-    email = dto.email,
-    phone = dto.phone,
-    memberRole = Role.USER.getDesc()
-)
+//fun mapToMember(dto : JoinDto) : Member = Member(
+//    id = null,
+//    userId = dto.userId,
+//    password = dto.password,
+//    name = dto.name,
+//    email = dto.email,
+//    phone = dto.phone,
+//    memberRole = Role.USER.getDesc()
+//)

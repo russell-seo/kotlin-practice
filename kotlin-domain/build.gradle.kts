@@ -1,6 +1,10 @@
 plugins {
     kotlin("jvm") version "1.6.21"
     java
+    id("org.springframework.boot") version "2.7.3"
+    id("io.spring.dependency-management") version "1.0.13.RELEASE"
+    kotlin("plugin.spring") version "1.6.21"
+    kotlin("plugin.jpa") version "1.6.21"
 }
 
 group = "com.example"
@@ -14,6 +18,9 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
+    api(project(":kotlin-common"))
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation ("org.springframework.boot:spring-boot-starter")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }

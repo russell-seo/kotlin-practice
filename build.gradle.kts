@@ -6,12 +6,16 @@ plugins {
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.6.21"
+    kotlin("kapt") version "1.3.61"
 }
 
 subprojects {
     apply {
         plugin("org.jetbrains.kotlin.jvm")
     }
+    apply(plugin = "kotlin-kapt")
+    apply(plugin = "java")
+
 }
 
 group = "com.example"
@@ -42,6 +46,12 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation ("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("io.jsonwebtoken:jjwt:0.9.1")
+    implementation("com.querydsl:querydsl-jpa:5.0.0")
+    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
+
+
+
 
 
 }
@@ -55,6 +65,10 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.getByName<Jar>("jar"){
+    enabled = false
 }
 
 allOpen{

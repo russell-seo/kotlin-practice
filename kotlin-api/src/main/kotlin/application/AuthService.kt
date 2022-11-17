@@ -7,6 +7,7 @@ import repository.MemberPort
 class AuthService(private val memberPort: MemberPort){
 
     fun joinMember(req : JoinReq) : JoinRes{
+        memberPort.save(email = req.email, name = req.name, password = req.password)
     }
 
 

@@ -28,4 +28,11 @@ class MemberAdapter(
     override fun getByEmail(email: String): Member {
        return findByEmail(email)?: throw Exception("존재하지 않는 이메일 입니다.")
     }
+
+    override fun save(email: String, password: String, name : String) {
+        val member = Member.create(email= email, password = password, name = name)
+        memberRepository.save(member)
+    }
+
+
 }

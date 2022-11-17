@@ -7,7 +7,8 @@ data class JoinRes(
 
 data class JoinReq(
     val email : String,
-    val password : String
+    val password : String,
+    val name : String
 )
 
 data class LoginReq(

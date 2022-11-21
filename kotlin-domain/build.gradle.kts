@@ -2,13 +2,27 @@ import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
     kotlin("jvm") version "1.6.21"
-    java
     id("org.springframework.boot") version "2.7.3"
     id("io.spring.dependency-management") version "1.0.13.RELEASE"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.6.21"
     kotlin("kapt") version "1.3.61"
 
+}
+
+subprojects {
+    apply {
+        plugin("org.jetbrains.kotlin.jvm")
+    }
+    apply(plugin = "kotlin-kapt")
+    apply(plugin = "java")
+
+}
+
+configurations {
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
 }
 
 group = "com.example"
@@ -44,4 +58,16 @@ tasks.getByName<Jar>("bootJar"){
 
 sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
     kotlin.srcDir("$buildDir/generated/source/kapt/main")
+}
+
+allOpen{
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
+}
+
+noArg {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
 }

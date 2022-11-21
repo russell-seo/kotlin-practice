@@ -12,5 +12,5 @@ interface MemberPort {
 
     fun getByEmail(email: String) : Member
 
-    fun save(email: String, password : String, name:String)
+    fun save(email: String, password : String, name:String) : Long
 }
